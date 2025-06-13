@@ -36,8 +36,8 @@ HealthPulse is a comprehensive solution for analyzing and visualizing health cam
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/HealthCampImpact.git
-cd HealthCampImpact
+git clone https://github.com/AnishMane/HealthPulse.git
+cd HealthPulse
 ```
 
 #### 2. Backend Setup
@@ -121,17 +121,6 @@ API_KEY=your_api_key
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 👥 Authors
 
-- Your Name - Initial work
-
-## 🙏 Acknowledgments
-
-- Apache Druid for data processing
-- FastAPI for backend framework
-- React and TypeScript for frontend development
-- All contributors who have helped shape this project 
+- Your Name - Anish Mane
