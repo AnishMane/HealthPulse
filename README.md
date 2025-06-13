@@ -1,12 +1,15 @@
-# HealthPulse 🏥
-
 <div align="center">
-  <img src="./frontend/public/HealthPulse.png" alt="HealthPulse Logo" width="200"/>
-  
-  [![React](https://img.shields.io/badge/React-18.3.1-blue)](https://reactjs.org/)
-  [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green)](https://fastapi.tiangolo.com/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue)](https://www.typescriptlang.org/)
-  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.11-38B2AC)](https://tailwindcss.com/)
+  <img src="./frontend/public/HealthPulse.png" width="180" height="180" alt="HealthPulse Logo">
+
+  <h1>HealthPulse</h1>
+  <p><strong>Real-time health analytics platform for tracking disease outbreaks and environmental impact</strong></p>
+
+  <p>
+    <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-18.3.1-blue" alt="React"></a>
+    <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-0.104.1-green" alt="FastAPI"></a>
+    <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.5.3-blue" alt="TypeScript"></a>
+    <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/TailwindCSS-3.4.11-38B2AC" alt="TailwindCSS"></a>
+  </p>
 </div>
 
 ## 📋 Overview
