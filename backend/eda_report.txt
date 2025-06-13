@@ -1,0 +1,93 @@
+Exploratory Data Analysis Report
+========================================
+
+First 5 rows of the dataset:
+  week_of_outbreak     state_ut            district                   Disease Cases  Deaths   Latitude  Longitude     preci   LAI        Temp      __time
+0         1st week    Meghalaya  East Jaintia Hills  Acute Diarrhoeal Disease   160     NaN  25.251576  92.484050  0.020354  34.5  291.533333  2022-01-02
+1         2nd week  Maharashtra          Gadchiroli                   Malaria     7     2.0  19.759070  80.162281  0.007479   9.0  299.970000  2022-01-10
+2         3rd week   Tamil Nadu          Pudukottai  Acute Diarrhoeal Disease     8     NaN  10.382651  78.819126  0.107413  12.0  300.766667  2022-01-18
+3         3rd week      Gujarat               Patan  Acute Diarrhoeal Disease     7     NaN  23.774057  71.683735  0.065094   9.0  299.080000  2022-01-11
+4         3rd week       Kerala           Ernakulam  Acute Diarrhoeal Disease    14     NaN   9.984080  76.274146  0.041256  33.0  303.028000  2021-12-24
+
+Dataset Info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 8985 entries, 0 to 8984
+Data columns (total 12 columns):
+ #   Column            Non-Null Count  Dtype  
+---  ------            --------------  -----  
+ 0   week_of_outbreak  8985 non-null   object 
+ 1   state_ut          8985 non-null   object 
+ 2   district          8985 non-null   object 
+ 3   Disease           8985 non-null   object 
+ 4   Cases             8985 non-null   object 
+ 5   Deaths            2554 non-null   float64
+ 6   Latitude          8985 non-null   float64
+ 7   Longitude         8985 non-null   float64
+ 8   preci             8849 non-null   float64
+ 9   LAI               6790 non-null   float64
+ 10  Temp              8047 non-null   float64
+ 11  __time            8985 non-null   object 
+dtypes: float64(6), object(6)
+memory usage: 842.5+ KB
+
+Dataset contains 8985 rows and 12 columns.
+
+Column names:
+week_of_outbreak, state_ut, district, Disease, Cases, Deaths, Latitude, Longitude, preci, LAI, Temp, __time
+
+Unique values in each column:
+week_of_outbreak: 53 unique values
+state_ut: 36 unique values
+district: 791 unique values
+Disease: 22 unique values
+Cases: 523 unique values
+Deaths: 44 unique values
+Latitude: 716 unique values
+Longitude: 726 unique values
+preci: 7905 unique values
+LAI: 62 unique values
+Temp: 4809 unique values
+__time: 3384 unique values
+
+Summary statistics for numerical columns:
+            Deaths     Latitude    Longitude        preci          LAI         Temp
+count  2554.000000  8985.000000  8985.000000  8849.000000  6790.000000  8047.000000
+mean      1.584573    20.623102    80.113904     0.462125    10.907143   304.519531
+std       5.389499     5.873265     5.698627     0.628652     7.920346     6.980089
+min       0.000000     8.079252    68.968002     0.000002     0.000000   259.680000
+25%       0.000000    16.291519    75.919568     0.023705     5.000000   300.602000
+50%       1.000000    21.347763    78.133725     0.225489     9.000000   303.445000
+75%       1.000000    24.796436    84.550268     0.672831    14.000000   308.590000
+max     147.000000    34.611024    95.945234     5.680000    62.000000   327.728000
+
+Missing values in each column:
+week_of_outbreak       0
+state_ut               0
+district               0
+Disease                0
+Cases                  0
+Deaths              6431
+Latitude               0
+Longitude              0
+preci                136
+LAI                 2195
+Temp                 938
+__time                 0
+
+Data types of each column:
+week_of_outbreak     object
+state_ut             object
+district             object
+Disease              object
+Cases                object
+Deaths              float64
+Latitude            float64
+Longitude           float64
+preci               float64
+LAI                 float64
+Temp                float64
+__time               object
+
+Note on 'Temp' column:
+The values in the 'Temp' column appear to be in Kelvin (K), based on the observed range.
+To convert to Celsius: Temp_C = Temp - 273.15
