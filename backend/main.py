@@ -153,40 +153,63 @@ async def get_trend(
 @app.get("/top-diseases", response_model=TopDiseasesResponse, summary="Get top diseases by case count")
 async def get_top_diseases(
     state_ut: str = Query(..., description="State/UT name"),
-    week: str = Query(..., description="Week in YYYY-MM-DD format")
+    week: str = Query(None, description="Week in YYYY-MM-DD format (optional)")
 ):
     """
-    Get top 5 diseases by case count for specified week in the state.
+    Get top 5 diseases by case count for the specified state.
     """
-    # Parse and format the date to ensure it's in the correct format for Druid
     try:
-        # Remove timezone information if present
-        week_date = week.split('T')[0]
+        # Clean up the state name by trimming spaces
+        cleaned_state = state_ut.strip()
+        logger.info(f"Fetching top diseases for state: {cleaned_state}")
+        
         query = f"""
         SELECT 
             Disease,
-            SUM(Cases) as total_cases
+            SUM(CASE 
+                WHEN Cases IS NULL THEN 0 
+                ELSE Cases 
+            END) as total_cases
         FROM inline_data
-        WHERE state_ut = '{state_ut}' 
-            AND DATE_TRUNC('week', __time) = TIMESTAMP '{week_date}'
+        WHERE TRIM(state_ut) = '{cleaned_state}'
+            AND Cases IS NOT NULL
         GROUP BY Disease
+        HAVING SUM(CASE 
+            WHEN Cases IS NULL THEN 0 
+            ELSE Cases 
+        END) > 0
         ORDER BY total_cases DESC
         LIMIT 5
         """
         
+        # Log the query for debugging
+        logger.info(f"Executing query: {query}")
+        
         result = await druid_client.execute_sql(query)
+        
+        # Log the query result for debugging
+        logger.info(f"Query returned {len(result)} results")
+        logger.info(f"Query result: {result}")
+        
+        if not result:
+            logger.warning(f"No data found for state: {cleaned_state}")
+            return TopDiseasesResponse(
+                state_ut=cleaned_state,
+                week="All Time",
+                diseases=[]
+            )
         
         diseases = [
             DiseaseRanking(
                 disease=row["Disease"],
-                total_cases=int(row["total_cases"]) if row["total_cases"] else 0
+                total_cases=int(row["total_cases"])
             )
             for row in result
         ]
         
         return TopDiseasesResponse(
-            state_ut=state_ut,
-            week=week_date,
+            state_ut=cleaned_state,
+            week="All Time",
             diseases=diseases
         )
     

@@ -38,27 +38,50 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedState && selectedDisease && selectedWeek) {
-      fetchData();
+    if (selectedState && selectedWeek) {
+      fetchTopDiseases();
     }
-  }, [selectedState, selectedDisease, selectedWeek]);
+  }, [selectedState, selectedWeek]);
 
-  const fetchData = async () => {
-    if (!selectedState || !selectedDisease || !selectedWeek) return;
+  useEffect(() => {
+    if (selectedState && selectedDisease) {
+      fetchTrendData();
+    }
+  }, [selectedState, selectedDisease]);
+
+  const fetchTrendData = async () => {
+    if (!selectedState || !selectedDisease) return;
     
     setLoading(true);
     setError(null);
     try {
-      const [trendResponse, topDiseasesResponse] = await Promise.all([
-        epidemiologyAPI.getTrendData(selectedState, selectedDisease),
-        epidemiologyAPI.getTopDiseases(selectedState, selectedWeek)
-      ]);
-      
+      const trendResponse = await epidemiologyAPI.getTrendData(selectedState, selectedDisease);
       setTrendData(trendResponse);
-      setTopDiseases(topDiseasesResponse);
+      console.log('Trend Response:', trendResponse);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      setError('Failed to fetch data. Please try again.');
+      console.error('Error fetching trend data:', error);
+      setError('Failed to fetch trend data. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchTopDiseases = async () => {
+    if (!selectedState || !selectedWeek) return;
+    
+    setLoading(true);
+    setError(null);
+    try {
+      const topDiseasesResponse = await epidemiologyAPI.getTopDiseases(selectedState, selectedWeek);
+      setTopDiseases(topDiseasesResponse);
+      console.log('Top Diseases Response:', topDiseasesResponse);
+      
+      if (!topDiseasesResponse.diseases || topDiseasesResponse.diseases.length === 0) {
+        console.warn('No top diseases data available for the selected parameters');
+      }
+    } catch (error) {
+      console.error('Error fetching top diseases:', error);
+      setError('Failed to fetch top diseases data. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -164,25 +187,31 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="h-[300px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={topDiseases?.diseases}
-                        dataKey="total_cases"
-                        nameKey="disease"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={100}
-                        label
-                      >
-                        {topDiseases?.diseases.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                      <Legend />
-                    </PieChart>
-                  </ResponsiveContainer>
+                  {topDiseases?.diseases && topDiseases.diseases.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={topDiseases.diseases}
+                          dataKey="total_cases"
+                          nameKey="disease"
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={100}
+                          label
+                        >
+                          {topDiseases.diseases.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  ) : (
+                    <div className="flex items-center justify-center h-full">
+                      <p className="text-muted-foreground">No disease data available for the selected parameters</p>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

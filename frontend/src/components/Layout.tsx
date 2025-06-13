@@ -63,9 +63,7 @@ const Layout = ({ children, currentPage, onPageChange }: LayoutProps) => {
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
-                <Database className="w-4 h-4 text-white" />
-              </div>
+              <img src="/HealthPulse.png" alt="HealthPulse Logo" className="w-8 h-8 rounded-lg object-contain bg-white p-1" />
               <h1 className="text-lg font-semibold text-foreground">HealthPulse</h1>
             </div>
             <Button
@@ -106,31 +104,6 @@ const Layout = ({ children, currentPage, onPageChange }: LayoutProps) => {
               })}
             </ul>
           </nav>
-
-          {/* Export Actions */}
-          <div className="p-6 border-t border-border">
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-muted-foreground mb-3">Export Data</p>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full justify-start"
-                onClick={() => handleExport('pdf')}
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                Export PDF
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full justify-start"
-                onClick={() => handleExport('csv')}
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Export CSV
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
 
