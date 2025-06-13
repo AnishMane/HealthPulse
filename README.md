@@ -1,7 +1,7 @@
-# Health Camp Impact Analysis Platform 🏥
+# HealthPulse 🏥
 
 <div align="center">
-  <img src="frontend/public/logo.png" alt="Health Camp Impact Logo" width="200"/>
+  <img src="./frontend/public/HealthPulse.png" alt="HealthPulse Logo" width="200"/>
   
   [![React](https://img.shields.io/badge/React-18.3.1-blue)](https://reactjs.org/)
   [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green)](https://fastapi.tiangolo.com/)
@@ -11,7 +11,7 @@
 
 ## 📋 Overview
 
-Health Camp Impact Analysis Platform is a comprehensive solution for analyzing and visualizing health camp data across different regions. The platform provides insights into disease outbreaks, environmental factors, and their impact on public health.
+HealthPulse is a comprehensive solution for analyzing and visualizing health camp data across different regions. The platform provides insights into disease outbreaks, environmental factors, and their impact on public health.
 
 ### 🌟 Key Features
 
